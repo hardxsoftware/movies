@@ -1,0 +1,32 @@
+<div ng-controller="movieSearchController as SearchController">
+
+    <md-content layout-padding>
+        <div layout="row" flex>
+            <md-input-container md-no-float flex>
+                <input id="query" ng-model="filter" type="text" placeholder="Search...">
+                <select ng-init="key='movie'" ng-model="key" id="searchType" hidden="hidden">
+                    <option ng-bind-html="category.icon" ng-repeat="category in categories" value="{{category.id}}">{{category.name}}</option>
+                </select>
+            </md-input-container>
+            <md-input-container>
+                <label>Category</label>
+                <md-select ng-init="key='movie'" ng-model="key" id="searchType">
+                    <md-option ng-repeat="category in categories" value="{{category.id}}" ng-bind-html="category.icon">
+                        <md-icon class="material-icons md-36">{{category.icon}}</md-icon>
+                        {{category.name}}
+                    </md-option>
+                </md-select>
+            </md-input-container>
+        </div>
+    </md-content>
+    <md-divider></md-divider>
+    <md-content class="md-padding" layout="row" layout-wrap>
+        <a ng-repeat="movie in movies | filter:search" href="#/{{key}}/{{movie.id}}" flex="20" flex-sm="33" flex-xs="50">
+            <md-card>
+                <img ng-src="https://image.tmdb.org/t/p/w500{{movie.poster_path}}" err-src="img/movie-placeholder.jpg" class="md-card-image"/>
+                <img ng-src="https://image.tmdb.org/t/p/w500{{movie.profile_path}}" err-src="img/movie-placeholder.jpg" class="md-card-image"/>
+            </md-card>
+        </a>
+    </md-content>
+
+</div>

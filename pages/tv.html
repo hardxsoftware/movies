@@ -1,0 +1,50 @@
+<div ng-controller="tvController">
+    <div ng-repeat="tvData in tvData">
+        <div style="background-size: cover; background: url('https://image.tmdb.org/t/p/w1920{{tvData.backdrop_path}}') center center no-repeat;" layout="row" layout-xs="column" layout-padding>
+            <div flex="25" flex-sm="33" flex-xs="50">
+                <img ng-src="https://image.tmdb.org/t/p/w500{{tvData.poster_path}}" err-src="img/movie-placeholder.jpg"/>
+            </div>
+        </div>
+
+        <md-tabs md-dynamic-height md-border-bottom>
+            <md-tab label="Season {{season.season_number}}" ng-repeat="season in tvData.seasons" ng-click="setTab(season.season_number)">
+                <md-content class="md-padding" layout="row" layout-wrap>
+
+                    <h1 class="md-display-2" flex="100">Season
+                        {{season.season_number}}</h1>
+                    <div flex="100">
+                        <img ng-src="https://image.tmdb.org/t/p/w500{{season.poster_path}}" err-src="img/movie-placeholder.jpg"/>
+                    </div>
+                    <div ng-repeat="episode in episodeData" flex="50">
+                        <p>{{episode.name}}</p>
+                    </div>
+                </md-content>
+            </md-tab>
+        </md-tabs>
+
+    </div>
+    <div ng-controller="tvCastController">
+        <div flex>
+            <md-toolbar layout="row" class="md-hue-3">
+                <div class="md-toolbar-tools">
+                    <span>Cast</span>
+                </div>
+            </md-toolbar>
+
+            <md-content>
+                <md-list flex>
+                    <md-list-item class="md-3-line" ng-repeat="actor in actors">
+                        <img ng-src="https://image.tmdb.org/t/p/w500{{actor.profile_path}}" err-src="img/movie-placeholder.jpg" class="md-avatar" alt="{{actor.name}}"/>
+                        <div class="md-list-item-text" layout="column">
+                            <a href="#/actor/{{actor.id}}">
+                                <h3>{{actor.name}}</h3>
+                                <h4>{{actor.character}}</h4>
+                            </a>
+                        </div>
+                    </md-list-item>
+                </md-list>
+            </md-content>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,71 @@
+<div class="row">
+    <div ng-controller="actorController">
+        <div class="col-md-2" ng-repeat="actorData in actorData">
+            <img class="img-responsive img-rounded" ng-src="https://image.tmdb.org/t/p/w500{{actorData.profile_path}}" err-src="img/movie-placeholder.jpg"/>
+
+            <div flex>
+                <h3 class="md-headline">{{actorData.name}}</h3>
+            </div>
+            <div flex>
+                <h3 class="md-title">{{actorData.birthday}}</h3>
+            </div>
+            <div flex>
+                <h3 class="md-subhead">{{actorData.place_of_birth}}</h3>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div layout="row" layout-wrap>
+    <div ng-controller="movieRolesController" flex="50">
+        <md-toolbar layout="row" class="md-hue-3">
+            <div class="md-toolbar-tools">
+                <span>Movie Roles:</span>
+            </div>
+        </md-toolbar>
+        <md-content>
+            <md-list flex>
+                <md-list-item class="md-3-line" ng-repeat="movieRole in movieRoles">
+                    <img ng-src="https://image.tmdb.org/t/p/w500{{movieRole.poster_path}}" err-src="img/movie-placeholder.jpg" class="md-avatar" alt="{{movieRole.title}}"/>
+                    <div class="md-list-item-text" layout="column">
+                        <a href="#/movie/{{movieRole.id}}">
+                            <h3>{{movieRole.title}}</h3>
+                            <h4>{{movieRole.character}}</h4>
+                        </a>
+                    </div>
+                </md-list-item>
+            </md-list>
+        </md-content>
+    </div>
+    <div ng-controller="tvRolesController" flex="50">
+        <md-toolbar layout="row" class="md-hue-3">
+            <div class="md-toolbar-tools">
+                <span>TV Roles:</span>
+            </div>
+        </md-toolbar>
+
+        <md-content>
+            <md-list flex>
+                <md-list-item class="md-3-line" ng-repeat="tvRole in tvRoles">
+                    <img ng-src="https://image.tmdb.org/t/p/w500{{tvRole.poster_path}}" err-src="img/movie-placeholder.jpg" class="md-avatar" alt="{{tvRole.title}}"/>
+                    <div class="md-list-item-text" layout="column">
+                        <a href="#/movie/{{tvRole.id}}">
+                            <h3>{{tvRole.title}}</h3>
+                            <h4>{{tvRole.character}}</h4>
+                        </a>
+                    </div>
+                </md-list-item>
+            </md-list>
+        </md-content>
+    </div>
+</div>
+
+<div ng-controller="socialController">
+    <div class="row">
+        <div class="col-md-2" ng-repeat="smAccount in smAccounts">
+            Twitter:
+            <a href="https://twitter.com/{{smAccount.twitter_id}}">@{{smAccount.twitter_id}}</a><br/>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="App">
+    <head>
+        <meta charset="UTF-8">
+        <title>Movies</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- Angular Material style sheet -->
+        <link rel="stylesheet" href="css/angular/angular-material.min.css">
+        <link rel="stylesheet" href="css/main.css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">
+    </head>
+
+    <body>
+        <!-- <ng-view></ng-view> -->
+        <div ng-controller="sidenavController" layout="column" style="height:100%;" ng-cloak>
+            <section layout="row" flex>
+                <md-sidenav class="md-sidenav-left" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')" md-whiteframe="4">
+                    <md-toolbar class="md-theme-indigo">
+                        <div class="md-toolbar-tools">
+                            <h1>Sidenav Left</h1>
+                            <span flex></span>
+                            <md-button class="md-icon-button md-button md-ink-ripple" aria-label="Menu" ng-click="toggleLeft()" hide-gt-md>
+                                <md-icon class="material-icons md-36">close</md-icon>
+                            </md-button>
+                        </div>
+                    </md-toolbar>
+                    <md-content layout-padding ng-controller="LeftCtrl">
+                        <p hide show-gt-md></p>
+                    </md-content>
+                </md-sidenav>
+                <md-content flex>
+                    <md-toolbar class="md-hue-2">
+                        <div class="md-toolbar-tools">
+                            <md-button class="md-icon-button md-button md-ink-ripple" aria-label="Menu" ng-click="toggleLeft()" hide-gt-md>
+                                <md-icon class="material-icons md-36">menu</md-icon>
+                            </md-button>
+                            <md-button class="md-icon-button md-button md-ink-ripple" aria-label="Menu" ng-href="#/">
+                                <md-icon class="material-icons md-36">home</md-icon>
+                            </md-button>
+                            <!-- <h2>
+                                <span>AngularJS + IMDb</span>
+                            </h2> -->
+                            <span flex></span>
+                            <md-button class="md-icon-button md-button md-ink-ripple" aria-label="Settings" ng-click="" hide-gt-md>
+                                <md-icon class="material-icons md-36">settings</md-icon>
+                            </md-button>
+                        </div>
+                    </md-toolbar>
+                    <ng-view></ng-view>
+                    <div flex></div>
+                </md-content>
+            </section>
+
+        </div>
+
+        <!-- Angular Material requires Angular.js Libraries -->
+        <script src="js/angular/angular.min.js"></script>
+        <script src="js/angular/angular-animate.min.js"></script>
+        <script src="js/angular/angular-aria.min.js"></script>
+        <script src="js/angular/angular-messages.min.js"></script>
+        <script src="js/angular/angular-route.min.js"></script>
+
+        <!-- Angular Material Library -->
+        <script src="js/angular/angular-material.min.js"></script>
+
+        <!-- jQuery Library -->
+        <script src="js/jquery-3.1.0.min.js"></script>
+        <script src="js/jquery-ui.min.js"></script>
+
+        <!-- Application  -->
+        <script src="js/app.js"></script>
+
+    </body>
+</html>
