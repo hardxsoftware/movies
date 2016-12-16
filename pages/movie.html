@@ -1,6 +1,6 @@
 <div ng-controller="movieController">
     <div ng-repeat="movieData in movieData">
-        <div style="background-size: cover; background: url('https://image.tmdb.org/t/p/w1920{{movieData.backdrop_path}}') center center no-repeat;" layout="row" layout-xs="column" layout-padding>
+        <div style="background-size: cover; background: url('https://image.tmdb.org/t/p/w1920{{movieData.backdrop_path}}') fixed top center no-repeat;" layout="row" layout-xs="column" layout-padding>
             <div flex="25" flex-sm="33" flex-xs="50">
                 <img ng-src="https://image.tmdb.org/t/p/w500{{movieData.poster_path}}" err-src="img/movie-placeholder.jpg"/>
             </div>

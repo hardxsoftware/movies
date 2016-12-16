@@ -1,6 +1,6 @@
- var App = angular.module('App', ['ngRoute', 'ngMaterial']);
+ var App = angular.module('App', ['ngRoute', 'ngMaterial', 'ngMessages']);
 
- App.config(function($httpProvider, $routeProvider) {
+ App.config(function($httpProvider, $routeProvider, $mdIconProvider) {
      delete $httpProvider.defaults.headers.common['X-Requested-With'];
 
      $routeProvider
@@ -16,11 +16,39 @@
          .when('/actor/:id', {
              templateUrl: 'pages/actor.html'
          })
+         .when('/footer', {
+             templateUrl: 'pages/footer.html'
+         })
          .otherwise({
              redirectTo: '/'
          });
  });
-App.controller('movieSearchController', function($scope, $http, $routeParams, $timeout) {
+//  App.config(function($mdThemingProvider) {
+//   $mdThemingProvider.definePalette('colorPalette', {
+//     '50': 'FFFDE7',
+//     '100': 'FFF9C4',
+//     '200': 'FFF59D',
+//     '300': 'FFF176',
+//     '400': 'FFEE58',
+//     '500': 'FFEB3B',
+//     '600': 'FDD835',
+//     '700': 'FBC02D',
+//     '800': 'F9A825',
+//     '900': 'F57F17',
+//     'A100': 'FFEB3B',
+//     'A200': 'FFFF00',
+//     'A400': 'FFEA00',
+//     'A700': 'FFD600',
+//     'contrastDefaultColor': 'light',    // whether, by default, text (contrast) on this palette should be dark or light
+//     'contrastDarkColors': ['50', '100', //hues which contrast should be 'dark' by default
+//      '200', '300', '400', 'A100'],
+//     'contrastLightColors': undefined    // could also specify this if default was 'dark'
+//   });
+//   $mdThemingProvider.theme('default')
+//     .primaryPalette('colorPalette')
+// });
+
+ App.controller('movieSearchController', function($scope, $http, $routeParams, $timeout) {
      $scope.categories = [{
          id: "movie",
          name: "Movies",
@@ -198,6 +226,7 @@ App.controller('movieSearchController', function($scope, $http, $routeParams, $t
      $scope.isOpenRight = function() {
          return $mdSidenav('right').isOpen();
      };
+
      function debounce(func, wait, context) {
          var timer;
          return function debounced() {
@@ -210,6 +239,7 @@ App.controller('movieSearchController', function($scope, $http, $routeParams, $t
              }, wait || 10);
          };
      }
+
      function buildDelayedToggler(navID) {
          return debounce(function() {
              $mdSidenav(navID)
@@ -219,6 +249,7 @@ App.controller('movieSearchController', function($scope, $http, $routeParams, $t
                  });
          }, 200);
      }
+
      function buildToggler(navID) {
          return function() {
              $mdSidenav(navID)
@@ -238,11 +269,64 @@ App.controller('movieSearchController', function($scope, $http, $routeParams, $t
 
      };
  })
-App.controller('RightCtrl', function($scope, $timeout, $mdSidenav, $log) {
-    $scope.close = function() {
-        $mdSidenav('right').close()
-            .then(function() {
-                $log.debug("close RIGHT is done");
-            });
-    };
-});
+ App.controller('RightCtrl', function($scope, $timeout, $mdSidenav, $log) {
+     $scope.close = function() {
+         $mdSidenav('right').close()
+             .then(function() {
+                 $log.debug("close RIGHT is done");
+             });
+     };
+ });
+ App.controller('BottomSheetExample', function($scope, $timeout, $mdBottomSheet, $mdToast) {
+     $scope.alert = '';
+
+     $scope.showGridBottomSheet = function() {
+         $scope.alert = '';
+         $mdBottomSheet.show({
+             templateUrl: 'bottom-sheet-grid-template.html',
+             controller: 'GridBottomSheetCtrl',
+             clickOutsideToClose: true
+         }).then(function(clickedItem) {
+             $mdToast.show(
+                 $mdToast.simple()
+                 .textContent(clickedItem['name'] + ' clicked!')
+                 .position('top right')
+                 .hideDelay(1500)
+             );
+         });
+     };
+ })
+
+ App.controller('GridBottomSheetCtrl', function($scope, $mdBottomSheet) {
+     $scope.items = [{
+         name: 'Share',
+         icon: 'share'
+     }, {
+         name: 'Mail',
+         icon: 'mail'
+     }, {
+         name: 'Message',
+         icon: 'message'
+     }, {
+         name: 'Copy',
+         icon: 'content_copy'
+     }, {
+         name: 'Send Link',
+         icon: 'link'
+     }, {
+         name: 'Print',
+         icon: 'print'
+     }, ];
+
+     $scope.listItemClick = function($index) {
+         var clickedItem = $scope.items[$index];
+         $mdBottomSheet.hide(clickedItem);
+     };
+ })
+
+
+
+ /**
+ Copyright 2016 Google Inc. All Rights Reserved.
+ Use of this source code is governed by an MIT-style license that can be foundin the LICENSE file at http://material.angularjs.org/HEAD/license.
+ **/

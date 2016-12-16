@@ -14,11 +14,10 @@
     </head>
 
     <body>
-        <!-- <ng-view></ng-view> -->
         <div ng-controller="sidenavController" layout="column" style="height:100%;" ng-cloak>
-            <section layout="row" flex>
+            <section layout="row" flex ng-controller="BottomSheetExample">
                 <md-sidenav class="md-sidenav-left" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')" md-whiteframe="4">
-                    <md-toolbar class="md-theme-indigo">
+                    <md-toolbar>
                         <div class="md-toolbar-tools">
                             <h1>Sidenav Left</h1>
                             <span flex></span>
@@ -27,9 +26,40 @@
                             </md-button>
                         </div>
                     </md-toolbar>
-                    <md-content layout-padding ng-controller="LeftCtrl">
+
+                    <md-content ng-controller="LeftCtrl">
                         <p hide show-gt-md></p>
+                        <md-list-item ng-click="#">
+                            <md-icon class="material-icons md-36">list</md-icon>
+                            <p>My Watchlist</p>
+                        </md-list-item>
+                        <md-list-item ng-click="#">
+                            <md-icon class="material-icons md-36">favorite</md-icon>
+                            <p>Favorites</p>
+                        </md-list-item>
+                        <md-list-item ng-click="#">
+                            <md-icon class="material-icons md-36">face</md-icon>
+                            <p>My Profile</p>
+                        </md-list-item>
+                        <md-divider></md-divider>
+                        <md-list-item ng-click="#">
+                            <md-icon class="material-icons md-36 md-warn">whatshot</md-icon>
+                            <p>Trending</p>
+                        </md-list-item>
+                        <md-list-item ng-click="#">
+                            <md-icon class="material-icons md-36">live_tv</md-icon>
+                            <p>Popular On TV</p>
+                        </md-list-item>
+                        <md-list-item ng-click="#">
+                            <md-icon class="material-icons md-36">theaters</md-icon>
+                            <p>In Theaters</p>
+                        </md-list-item>
+                        <md-list-item ng-click="#">
+                            <md-icon class="material-icons md-36">new_releases</md-icon>
+                            <p>Upcoming Releases</p>
+                        </md-list-item>
                     </md-content>
+
                 </md-sidenav>
                 <md-content flex>
                     <md-toolbar class="md-hue-2">
@@ -37,19 +67,76 @@
                             <md-button class="md-icon-button md-button md-ink-ripple" aria-label="Menu" ng-click="toggleLeft()" hide-gt-md>
                                 <md-icon class="material-icons md-36">menu</md-icon>
                             </md-button>
-                            <md-button class="md-icon-button md-button md-ink-ripple" aria-label="Menu" ng-href="#/">
+                            <md-button class="md-icon-button md-button md-ink-ripple" aria-label="Home" ng-href="#/">
                                 <md-icon class="material-icons md-36">home</md-icon>
                             </md-button>
                             <!-- <h2>
                                 <span>AngularJS + IMDb</span>
                             </h2> -->
                             <span flex></span>
-                            <md-button class="md-icon-button md-button md-ink-ripple" aria-label="Settings" ng-click="" hide-gt-md>
+                            <md-button class="md-icon-button md-button md-ink-ripple" aria-label="Home" ng-href="#/">
+                                <md-icon class="material-icons md-36">code</md-icon>
+                            </md-button>
+
+                            <md-button class="md-icon-button md-button md-ink-ripple" aria-label="Settings" ng-click="showGridBottomSheet()">
                                 <md-icon class="material-icons md-36">settings</md-icon>
                             </md-button>
                         </div>
                     </md-toolbar>
+
+                    <div class="bottomSheetdemoBasicUsage" ng-cloak="">
+                        <div ng-if="alert">
+                            <br>
+                            <b layout="row" layout-align="center center" class="md-padding">
+                                {{alert}}
+                            </b>
+                        </div>
+
+                        <script type="text/ng-template" id="bottom-sheet-grid-template.html">
+                            <md-bottom-sheet class="md-grid" layout="column">
+                                <div layout="row" layout-align="center center" ng-cloak>
+                                    <!-- <h4>Since <code>clickOutsideToClose = false</code>, drag down or press ESC to close</h4> -->
+                                </div>
+                                <div ng-cloak>
+                                    <md-list flex layout="row" layout-align="center center">
+                                        <md-list-item ng-repeat="item in items">
+                                            <div>
+                                                <md-button class="md-grid-item-content" ng-click="listItemClick($index)">
+                                                    <md-icon class="material-icons md-36">{{item.icon}}</md-icon>
+                                                    <div class="md-grid-text">
+                                                        {{ item.name }}
+                                                    </div>
+                                                </md-button>
+                                            </div>
+                                        </md-list-item>
+                                    </md-list>
+                                </div>
+                            </md-bottom-sheet>
+                        </script>
+                        <script type="text/ng-template" id="bottom-sheet-list-template.html">
+                            <md-bottom-sheet class="md-list md-has-header">
+                                <md-subheader ng-cloak>Comment Actions</md-subheader>
+                                <md-list ng-cloak>
+                                    <md-list-item ng-repeat="item in items">
+
+                                        <md-button ng-click="listItemClick($index)" md-autofocus="$index == 2" class="md-list-item-content">
+                                            <md-icon md-svg-src="{{item.icon}}"></md-icon>
+                                            <span class="md-inline-list-icon-label">{{ item.name }}</span>
+                                        </md-button>
+
+                                    </md-list-item>
+                                </md-list>
+                            </md-bottom-sheet>
+                        </script>
+                    </div>
+
+                    <!--
+                    Copyright 2016 Google Inc. All Rights Reserved.
+                    Use of this source code is governed by an MIT-style license that can be foundin the LICENSE file at http://material.angularjs.org/HEAD/license.
+                    -->
+
                     <ng-view></ng-view>
+
                     <div flex></div>
                 </md-content>
             </section>
